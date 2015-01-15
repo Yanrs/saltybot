@@ -1,5 +1,5 @@
 # keep track of played matches so elo doesn't get fucked up
-import simplejson as json
+import json
 import pickle
 from flask import Flask, request, g, render_template
 import sqlite3
@@ -45,7 +45,7 @@ def result():
 
 	f = open('meta.json', 'r')
 	data = json.load(f)
-	print won
+	print (won)
 	if won == 'true':
 		data['correct'] += 1
 		data['money_won'] += pay
