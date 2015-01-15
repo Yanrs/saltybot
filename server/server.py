@@ -123,9 +123,9 @@ def calc_bet(p1, p2, balance):
 		p2 = p2[0]
 
 	if p2 > p1:
-		return 'player2 10'
+		return 'player2 5'
 	else:
-		return 'player1 10'
+		return 'player1 5'
 
 def get_db():
     db = getattr(g, '_database', None)
