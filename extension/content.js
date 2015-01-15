@@ -71,7 +71,7 @@ function update(){
         data: "",
         dataType: "json",
         cache: "false",
-        timeout: 30000,
+        timeout: 50000,
 	    success: function(data) {
 	    	//  If nothing has changed, don't do anything.
 	    	if (data.status == lastStatus){
@@ -155,21 +155,24 @@ function bet(p1, p2){
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	xhr.onreadystatechange = function() { 
+	
 		if (xhr.readyState == 4){
 			var res = xhr.response.split(" ");
 			console.log(res);
-		    lastWager = res[1];
+		    lastWager = Math.round(balance*(res[1]/ 100));
 		    wager.value = lastWager;
 		    lastPlayer = res[0];
 		    console.log('lastPlayer ' + lastPlayer);
-
-		    setTimeout(function() {
+    setTimeout(function() {
 			document.getElementById(lastPlayer).click();
 			console.log(btn);}, 10000);
+			
+		   
 		}
 	}
 
 	xhr.send();
+	
 }
 
 //  Send results of bet to server and notify user.
