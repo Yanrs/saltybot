@@ -27,7 +27,7 @@ def bet():
 	p1 = request.args['p1']
 	p2 = request.args['p2']
 	balance = request.args['balance']
-
+    
 	p1_elo = cur.execute('SELECT elo FROM fighter WHERE name=?', (p1,)).fetchone()
 	p2_elo = cur.execute('SELECT elo FROM fighter WHERE name=?', (p2,)).fetchone()
 
