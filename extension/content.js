@@ -163,9 +163,9 @@ function bet(p1, p2){
 		    lastPlayer = res[0];
 		    console.log('lastPlayer ' + lastPlayer);
 
-		    var btn = document.getElementById(lastPlayer);
-		    console.log(button);
-		    btn.click();
+		    setTimeout(function() {
+			document.getElementById(lastPlayer).click();
+			console.log(btn);}, 10000);
 		}
 	}
 
