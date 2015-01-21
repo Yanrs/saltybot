@@ -86,7 +86,7 @@ def record_match(winner, loser):
 	else:
 		cur.execute('SELECT total_ratings FROM fighter WHERE name=?', (loser,))
 		fetched = cur.fetchone()
-		print fetched
+		print (fetched)
 		if fetched is None:
 			loser_elo = 1000
 		else:
