@@ -51,7 +51,7 @@ def result():
 		data['money_won'] += pay
 	else:
 		data['incorrect'] += 1
-		data['money_lost'] += pay
+		data['money_lost'] -= pay
 	f.close()
 	# update json file
 	f = open('meta.json', 'w')
@@ -84,11 +84,13 @@ def record_match(winner, loser):
 	if not win_data:
 		cur.execute('INSERT INTO fighter VALUES(?, ?, ?, ?, ?)', (winner, 1, 0, 1000, 1400))
 	else:
-		loser_elo = cur.execute('SELECT total_ratings FROM fighter WHERE name=?', (loser,))
-		if loser_elo.fetchone() is None:
+		cur.execute('SELECT total_ratings FROM fighter WHERE name=?', (loser,))
+		fetched = cur.fetchone()
+		print fetched
+		if fetched is None:
 			loser_elo = 1000
 		else:
-			loser_elo = cur.fetchone()[0]
+			loser_elo = fetched()[0]
 		new_elo = update_elo(win_data)
 		cur.execute('UPDATE fighter SET wins=wins+1, total_ratings=total_ratings+?, elo=? WHERE name=?', (loser_elo, new_elo, winner))
 
@@ -113,19 +115,13 @@ def update_elo(fighter):
 	return (opponent_ratings + 400 * (wins - losses))/(wins + losses)
 
 def calc_bet(p1, p2, balance):
-	if p1 is None:
-		p1 = 1000
-	else:
-		p1 = p1[0]
-	if p2 is None:
-		p2 = 1000
-	else:
-		p2 = p2[0]
+	p1 = p1[0]
+	p2 = p2[0]
 
 	if p2 > p1:
-		return 'player2 5'
+		return 'player2 7'
 	else:
-		return 'player1 5'
+		return 'player1 7'
 
 def get_db():
     db = getattr(g, '_database', None)

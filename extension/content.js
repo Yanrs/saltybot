@@ -84,33 +84,27 @@ function update(){
 	    		//  Calculate expected payout
 	    		p1total = parseInt(data.p1total.replace(/,/g, ""));
 	    		p2total = parseInt(data.p2total.replace(/,/g, ""));
-	    		console.log(p1total);
 	    		var payout = Math.ceil((lastWager / p1total) * p2total);
-	    		console.log(payout);
-	    		console.log(lastWager);
-	    		console.log(lastWager/p1total);
+	    		
 
 	    		//  Checks if we were right or wrong.
 	    		if (lastPlayer === "player1"){
     				recordPayout(true, payout);
 	    		} else if (lastPlayer === "player2"){
-    				recordPayout(false, payout);
+    				recordPayout(false, lastWager);
 	    		}
 
 	    		recordMatch(data.p1name, data.p2name);
 	    	} else if (data.status == 2){	//  player 2 has won
 	    		p1total = parseInt(data.p1total.replace(/,/g, ""));
 	    		p2total = parseInt(data.p2total.replace(/,/g, ""));
-	    		console.log(p1total);
 	    		var payout = Math.ceil((lastWager / p2total) * p1total);
-	    		console.log(payout);
-	    		console.log(lastWager);
-	    		console.log(lastWager/p1total);
+	
 
 				if (lastPlayer === "player2"){
     				recordPayout(true, payout);
 	    		} else if (lastPlayer === "player1") {
-    				recordPayout(false, payout);
+    				recordPayout(false, lastWager);
 	    		}
 
 	    		recordMatch(data.p2name, data.p1name);
@@ -121,7 +115,7 @@ function update(){
 	    	} 
 	    },
 	    error: function() {
-	    	alert("error in update");
+	    	console.log("error in update");
 	    }
 
 	});
